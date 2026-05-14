@@ -1,0 +1,145 @@
+.coming-soon {
+  padding: 64px 0;
+}
+
+.coming-soon__title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 34px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+
+.coming-soon__grid {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 16px;
+  align-items: stretch;
+}
+
+/* ── Reveal Card (left) ── */
+.reveal-card {
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.reveal-card__image {
+  width: 100%;
+  min-height: 380px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.reveal-card__overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 36px 32px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.92) 0%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.reveal-card__tag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  color: var(--teal);
+  text-transform: uppercase;
+}
+
+.reveal-card__name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 52px;
+  line-height: 1;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.reveal-card__btn {
+  align-self: flex-start;
+  background: none;
+  border: 2px solid var(--text);
+  color: var(--text);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 2px;
+  padding: 9px 22px;
+  border-radius: 2px;
+  margin-top: 4px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.reveal-card__btn:hover {
+  background: var(--text);
+  color: var(--bg);
+}
+
+/* ── Side cards (right) ── */
+.coming-soon__side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.side-card {
+  flex: 1;
+  padding: 28px 26px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.side-card--purple {
+  background-color: var(--purple);
+}
+
+.side-card--crimson {
+  background-color: var(--crimson);
+}
+
+.side-card__title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.side-card__body {
+  font-size: 13px;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.side-card__link {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  text-decoration: underline;
+  color: rgba(255, 255, 255, 0.9);
+  transition: color 0.2s;
+  text-transform: uppercase;
+}
+
+.side-card__link:hover {
+  color: #fff;
+}
+
+.side-card__countdown {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 44px;
+  letter-spacing: 4px;
+  margin-top: auto;
+}

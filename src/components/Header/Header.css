@@ -1,0 +1,114 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: rgba(255, 255, 255, 0.97);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(8px);
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  height: 58px;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--h-pad);
+}
+
+.header__logo {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: 3px;
+  color: var(--crimson);
+  flex-shrink: 0;
+}
+
+.header__nav {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+.header__nav-link {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  padding-bottom: 3px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s;
+}
+
+.header__nav-link:hover {
+  color: var(--text);
+}
+
+.header__nav-link--active {
+  color: var(--text);
+  border-bottom-color: var(--purple);
+}
+
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.header__search {
+  display: flex;
+  align-items: center;
+  background-color: #f2f2f2;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 7px 12px;
+  gap: 8px;
+  width: 210px;
+  color: var(--text-dim);
+}
+
+.header__search-input {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 11px;
+  letter-spacing: 1px;
+  width: 100%;
+  outline: none;
+}
+
+.header__search-input::placeholder {
+  color: var(--text-dim);
+}
+
+.header__icon-btn {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  background-color: #f2f2f2;
+  color: var(--text-muted);
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.header__icon-btn:hover {
+  border-color: #444;
+  color: var(--text);
+}
+
+.header__avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: var(--placeholder);
+  border: 2px solid var(--purple);
+  flex-shrink: 0;
+}
