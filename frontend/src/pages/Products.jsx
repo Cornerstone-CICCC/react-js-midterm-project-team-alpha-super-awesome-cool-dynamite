@@ -1,18 +1,48 @@
-// ARTURO: Products Page
-// TODO: Create page displaying all products
-// Should:
-// - Fetch all products from API
-// - Display products in a grid using ProductCard component
-// - Handle loading state
-// - Handle empty state
-// - Implement handleAddToCart function
-// - Check if user is authenticated before adding to cart
-// - Use useAuth hook to get current user
+import { useState, useEffect } from 'react';
+import ProductCard from '../components/ProductCard';
+import { productsApi, cartApi } from '../services/api';
+import { useAuth } from '../context/AuthContext';
 
-// Import useState, useEffect
-// Import ProductCard component
-// Import productsApi, cartApi services
-// Import useAuth hook
-// Fetch products on mount
-// Implement handleAddToCart
-// Return products page JSX
+function Products() {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const { user } = useAuth();
+
+  useEffect(() => {
+    productsApi.getAll()
+      .then((res) => setProducts(res.data))
+      .catch(() => setError('Failed to load products.'))
+      .finally(() => setLoading(false));
+  }, []);
+
+  const handleAddToCart = async (product) => {
+    if (!user) return alert('Please log in to add items to your cart.');
+    try {
+      await cartApi.addItem({ productId: product._id, quantity: 1 });
+      alert(`"${product.name}" added to cart!`);
+    } catch {
+      alert('Failed to add to cart.');
+    }
+  };
+
+  if (loading) return <div className="p-8 text-center">Loading products...</div>;
+  if (error) return <div className="p-8 text-center text-red-500">{error}</div>;
+
+  return (
+    <div className="container mx-auto px-6 py-8">
+      <h1 className="text-2xl font-bold mb-6">All Products</h1>
+      {products.length === 0 ? (
+        <p className="text-gray-500">No products available yet.</p>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {products.map((product) => (
+            <ProductCard key={product._id} product={product} onAddToCart={handleAddToCart} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default Products;

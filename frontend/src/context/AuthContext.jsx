@@ -1,14 +1,43 @@
-// ARTURO: Authentication Context
-// TODO: Create context for managing global authentication state
-// Should provide:
-// - user state (current authenticated user)
-// - token state (JWT token)
-// - loading state (for initial auth check)
-// - login() function (save user and token)
-// - logout() function (clear user and token)
-// Use localStorage to persist auth state
+import { createContext, useContext, useState, useEffect } from 'react';
 
-// Create AuthContext
-// Create AuthProvider component
-// Create useAuth hook
-// Check localStorage on mount to restore session
+const AuthContext = createContext(null);
+
+export function AuthProvider({ children }) {
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const savedToken = localStorage.getItem('token');
+    const savedUser = localStorage.getItem('user');
+    if (savedToken && savedUser) {
+      setToken(savedToken);
+      setUser(JSON.parse(savedUser));
+    }
+    setLoading(false);
+  }, []);
+
+  const login = (userData, jwt) => {
+    setUser(userData);
+    setToken(jwt);
+    localStorage.setItem('token', jwt);
+    localStorage.setItem('user', JSON.stringify(userData));
+  };
+
+  const logout = () => {
+    setUser(null);
+    setToken(null);
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+  };
+
+  return (
+    <AuthContext.Provider value={{ user, token, loading, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
+}
+
+export function useAuth() {
+  return useContext(AuthContext);
+}

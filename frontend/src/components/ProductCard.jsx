@@ -1,14 +1,43 @@
-// ARTURO: ProductCard Component
-// TODO: Create reusable card to display a single product
-// Should display:
-// - Product image
-// - Product name
-// - Product description (truncated)
-// - Product price
-// - Stock status
-// - "View Details" button (link to product detail page)
-// - "Add to Cart" button (call onAddToCart function)
-// Accept props: product, onAddToCart
+import { Link } from 'react-router-dom';
 
-// Import Link from react-router-dom
-// Return product card JSX with styling
+function ProductCard({ product, onAddToCart }) {
+  const { _id, name, description, price, image, stock } = product;
+
+  return (
+    <div className="bg-white rounded-lg shadow overflow-hidden flex flex-col">
+      <img
+        src={image}
+        alt={name}
+        className="w-full h-48 object-cover"
+        onError={(e) => { e.target.style.display = 'none'; }}
+      />
+      <div className="p-4 flex flex-col flex-1">
+        <h3 className="font-semibold text-lg mb-1">{name}</h3>
+        <p className="text-gray-500 text-sm mb-2 flex-1 line-clamp-2">{description}</p>
+        <div className="flex items-center justify-between mb-3">
+          <span className="text-purple-700 font-bold text-lg">${price.toFixed(2)}</span>
+          <span className={`text-xs font-medium px-2 py-1 rounded ${stock > 0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-600'}`}>
+            {stock > 0 ? `In Stock (${stock})` : 'Out of Stock'}
+          </span>
+        </div>
+        <div className="flex gap-2">
+          <Link
+            to={`/products/${_id}`}
+            className="flex-1 text-center border border-purple-700 text-purple-700 rounded py-1 text-sm hover:bg-purple-50 transition"
+          >
+            View Details
+          </Link>
+          <button
+            onClick={() => onAddToCart(product)}
+            disabled={stock === 0}
+            className="flex-1 bg-purple-700 text-white rounded py-1 text-sm hover:bg-purple-800 transition disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Add to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default ProductCard;

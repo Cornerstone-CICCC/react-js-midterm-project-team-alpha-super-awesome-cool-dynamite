@@ -1,17 +1,55 @@
-// ARTURO: Root Application Component
-// TODO: Set up main application structure with routing
-// Should:
-// - Wrap app with AuthProvider for authentication context
-// - Set up BrowserRouter with all routes
-// - Create Navbar that appears on all pages
-// - Define public routes (/, /products, /products/:id, /login, /signup)
-// - Define protected routes (require authentication)
-// - Define admin-only routes
-// - Use ProtectedRoute component for protected/admin routes
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import Navbar from './components/Navbar';
+import ProtectedRoute from './components/ProtectedRoute';
+import Home from './pages/Home';
+import Products from './pages/Products';
+import ProductDetail from './pages/ProductDetail';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
+import AdminDashboard from './pages/AdminDashboard';
 
-// Import BrowserRouter, Routes, Route from react-router-dom
-// Import AuthProvider from context
-// Import Navbar component
-// Import all page components
-// Import ProtectedRoute component
-// Return app JSX with routing structure
+function App() {
+  return (
+    <AuthProvider>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/products/:id" element={<ProductDetail />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route
+            path="/cart"
+            element={
+              <ProtectedRoute>
+                <Cart />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/checkout"
+            element={
+              <ProtectedRoute>
+                <Checkout />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute requiredRole="admin">
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
+  );
+}
+
+export default App;

@@ -1,15 +1,14 @@
-// ARTURO: ProtectedRoute Component
-// TODO: Create component to protect routes that require authentication
-// Should:
-// - Check if user is authenticated using useAuth hook
-// - Show loading state while checking auth
-// - Redirect to login if user not authenticated
-// - Optionally check for specific role (admin)
-// - Render children if authorized
-// Accept props: children, requiredRole (optional)
+import { Navigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
-// Import Navigate from react-router-dom
-// Use useAuth hook
-// Handle loading state
-// Redirect if not authenticated
-// Return children or redirect
+function ProtectedRoute({ children, requiredRole }) {
+  const { user, loading } = useAuth();
+
+  if (loading) return <div className="p-8 text-center">Loading...</div>;
+  if (!user) return <Navigate to="/login" replace />;
+  if (requiredRole && user.role !== requiredRole) return <Navigate to="/" replace />;
+
+  return children;
+}
+
+export default ProtectedRoute;
