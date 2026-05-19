@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 function ProductCard({ product, onAddToCart }) {
-  const { _id, name, description, price, image, stock } = product;
+  const { _id, name, description, price, image } = product;
 
   return (
     <div className="bg-white rounded-lg shadow overflow-hidden flex flex-col">
@@ -16,9 +16,6 @@ function ProductCard({ product, onAddToCart }) {
         <p className="text-gray-500 text-sm mb-2 flex-1 line-clamp-2">{description}</p>
         <div className="flex items-center justify-between mb-3">
           <span className="text-purple-700 font-bold text-lg">${price.toFixed(2)}</span>
-          <span className={`text-xs font-medium px-2 py-1 rounded ${stock > 0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-600'}`}>
-            {stock > 0 ? `In Stock (${stock})` : 'Out of Stock'}
-          </span>
         </div>
         <div className="flex gap-2">
           <Link
@@ -29,8 +26,7 @@ function ProductCard({ product, onAddToCart }) {
           </Link>
           <button
             onClick={() => onAddToCart(product)}
-            disabled={stock === 0}
-            className="flex-1 bg-purple-700 text-white rounded py-1 text-sm hover:bg-purple-800 transition disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex-1 bg-purple-700 text-white rounded py-1 text-sm hover:bg-purple-800 transition"
           >
             Add to Cart
           </button>

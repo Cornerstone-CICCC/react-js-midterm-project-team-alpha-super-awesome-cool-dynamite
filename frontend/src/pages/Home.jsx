@@ -4,11 +4,13 @@ import toast from "react-hot-toast";
 import ProductCard from "../components/ProductCard";
 import { productsApi, cartApi } from "../services/api";
 import { useAuth } from "../context/AuthContext";
+import { useCart } from "../context/CartContext";
 
 function Home() {
   const [featured, setFeatured] = useState([]);
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
+  const { refreshCart } = useCart();
 
   useEffect(() => {
     productsApi
@@ -23,6 +25,7 @@ function Home() {
     try {
       await cartApi.addItem({ productId: product._id, quantity: 1 });
       toast.success(`"${product.name}" added to cart!`);
+      refreshCart();
     } catch {
       toast.error("Failed to add to cart.");
     }

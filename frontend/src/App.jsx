@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "./context/AuthContext";
+import { CartProvider } from "./context/CartContext";
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./pages/Home";
@@ -15,6 +16,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 function App() {
   return (
     <AuthProvider>
+      <CartProvider>
       <BrowserRouter>
         <Navbar />
         <Toaster position="top-right" />
@@ -50,6 +52,7 @@ function App() {
           />
         </Routes>
       </BrowserRouter>
+      </CartProvider>
     </AuthProvider>
   );
 }
