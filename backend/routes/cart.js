@@ -21,4 +21,7 @@ router.post('/remove', cartController.removeFromCart);
 // CARLOS: PUT /api/cart/update - Update product quantity
 router.put('/update', cartController.updateCartItem);
 
+// CARLOS: DELETE /api/cart/clear - Clear all items from cart
+router.delete('/clear', cartController.clearCart);
+
 module.exports = router;

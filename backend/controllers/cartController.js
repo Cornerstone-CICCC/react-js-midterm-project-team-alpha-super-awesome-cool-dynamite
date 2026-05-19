@@ -111,3 +111,20 @@ exports.updateCartItem = async (req, res) => {
     res.status(500).json({ message: 'Error updating cart', error: error.message });
   }
 };
+
+// CARLOS: DELETE - Clear all items from cart
+exports.clearCart = async (req, res) => {
+  try {
+    const cart = await Cart.findOne({ user: req.user.id });
+    if (!cart) {
+      return res.status(404).json({ message: 'Cart not found' });
+    }
+
+    cart.items = [];
+    await cart.save();
+
+    res.status(200).json({ message: 'Cart cleared' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error clearing cart', error: error.message });
+  }
+};

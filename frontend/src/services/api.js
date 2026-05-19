@@ -30,6 +30,7 @@ export const cartApi = {
   addItem: (data) => api.post('/cart/add', data),
   updateItem: (productId, data) => api.put('/cart/update', { productId, ...data }),
   removeItem: (productId) => api.post('/cart/remove', { productId }),
+  clearCart: () => api.delete('/cart/clear'),
 };
 
 export default api;

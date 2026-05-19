@@ -2,9 +2,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { cartApi } from "../services/api";
+import { useCart } from "../context/CartContext";
 
 export default function Checkout() {
   const navigate = useNavigate();
+  const { refreshCart } = useCart();
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [orderPlaced, setOrderPlaced] = useState(false);
@@ -40,6 +42,12 @@ export default function Checkout() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      await cartApi.clearCart();
+      refreshCart();
+    } catch (err) {
+      console.error("Error clearing cart after order");
+    }
     setOrderPlaced(true);
     setTimeout(() => navigate("/"), 3000);
   };
