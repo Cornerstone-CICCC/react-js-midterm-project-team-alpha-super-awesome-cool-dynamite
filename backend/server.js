@@ -5,7 +5,6 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const connectDB = require('./config/db');
 
 // CARLOS: Import routes
 const authRoutes = require('./routes/auth');
@@ -14,8 +13,10 @@ const cartRoutes = require('./routes/cart');
 
 const app = express();
 
-// CARLOS: Connect to database
-connectDB();
+// CARLOS: Connect to MongoDB
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => console.log('✅ Connected to MongoDB Atlas'))
+  .catch(err => console.error('❌ MongoDB connection error:', err.message));
 
 // CARLOS: Middleware
 app.use(cors({

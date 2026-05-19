@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
-import ProductCard from '../components/ProductCard';
-import { productsApi, cartApi } from '../services/api';
-import { useAuth } from '../context/AuthContext';
+import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
+import ProductCard from "../components/ProductCard";
+import { productsApi, cartApi } from "../services/api";
+import { useAuth } from "../context/AuthContext";
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -10,23 +11,25 @@ function Products() {
   const { user } = useAuth();
 
   useEffect(() => {
-    productsApi.getAll()
+    productsApi
+      .getAll()
       .then((res) => setProducts(res.data))
-      .catch(() => setError('Failed to load products.'))
+      .catch(() => setError("Failed to load products."))
       .finally(() => setLoading(false));
   }, []);
 
   const handleAddToCart = async (product) => {
-    if (!user) return alert('Please log in to add items to your cart.');
+    if (!user) return toast.error("Please log in to add items to your cart.");
     try {
       await cartApi.addItem({ productId: product._id, quantity: 1 });
-      alert(`"${product.name}" added to cart!`);
+      toast.success(`"${product.name}" added to cart!`);
     } catch {
-      alert('Failed to add to cart.');
+      toast.error("Failed to add to cart.");
     }
   };
 
-  if (loading) return <div className="p-8 text-center">Loading products...</div>;
+  if (loading)
+    return <div className="p-8 text-center">Loading products...</div>;
   if (error) return <div className="p-8 text-center text-red-500">{error}</div>;
 
   return (
@@ -37,7 +40,11 @@ function Products() {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {products.map((product) => (
-            <ProductCard key={product._id} product={product} onAddToCart={handleAddToCart} />
+            <ProductCard
+              key={product._id}
+              product={product}
+              onAddToCart={handleAddToCart}
+            />
           ))}
         </div>
       )}

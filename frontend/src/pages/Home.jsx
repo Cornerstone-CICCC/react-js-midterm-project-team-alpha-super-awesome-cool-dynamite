@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import ProductCard from '../components/ProductCard';
-import { productsApi, cartApi } from '../services/api';
-import { useAuth } from '../context/AuthContext';
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import ProductCard from "../components/ProductCard";
+import { productsApi, cartApi } from "../services/api";
+import { useAuth } from "../context/AuthContext";
 
 function Home() {
   const [featured, setFeatured] = useState([]);
@@ -10,27 +11,32 @@ function Home() {
   const { user } = useAuth();
 
   useEffect(() => {
-    productsApi.getAll()
+    productsApi
+      .getAll()
       .then((res) => setFeatured(res.data.slice(0, 6)))
       .catch(() => {})
       .finally(() => setLoading(false));
   }, []);
 
   const handleAddToCart = async (product) => {
-    if (!user) return alert('Please log in to add items to your cart.');
+    if (!user) return toast.error("Please log in to add items to your cart.");
     try {
       await cartApi.addItem({ productId: product._id, quantity: 1 });
-      alert(`"${product.name}" added to cart!`);
+      toast.success(`"${product.name}" added to cart!`);
     } catch {
-      alert('Failed to add to cart.');
+      toast.error("Failed to add to cart.");
     }
   };
 
   return (
     <div>
-      <section className="bg-purple-700 text-white py-16 px-6 text-center">
-        <h1 className="text-4xl font-bold mb-3">Welcome to Glitch Marketplace</h1>
-        <p className="text-lg mb-6 text-purple-200">Your go-to store for games and collectibles</p>
+      <section className="bg-purple-700 text-white py-16 px-6 text-center mb-8">
+        <h1 className="text-4xl font-bold mb-3">
+          Welcome to Glitch Marketplace
+        </h1>
+        <p className="text-lg mb-6 text-purple-200">
+          Your go-to store for games and collectibles
+        </p>
         <Link
           to="/products"
           className="bg-white text-purple-700 font-semibold px-6 py-2 rounded hover:bg-purple-50 transition"
@@ -49,7 +55,11 @@ function Home() {
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
               {featured.map((product) => (
-                <ProductCard key={product._id} product={product} onAddToCart={handleAddToCart} />
+                <ProductCard
+                  key={product._id}
+                  product={product}
+                  onAddToCart={handleAddToCart}
+                />
               ))}
             </div>
             <div className="text-center mt-8">

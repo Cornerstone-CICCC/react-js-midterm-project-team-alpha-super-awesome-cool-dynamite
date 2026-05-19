@@ -1,6 +1,5 @@
 // CARLOS: Product Controller
-// Handles CRUD logic for products (Create, Read, Update, Delete)
-// Only administrators can create, edit and delete products
+// Handles CRUD operations for products in MongoDB
 
 const Product = require('../models/Product');
 
@@ -30,19 +29,16 @@ exports.getProductById = async (req, res) => {
 // CARLOS: POST - Create new product (Admin only)
 exports.createProduct = async (req, res) => {
   try {
-    // CARLOS: Verify that user is admin
     if (req.user.role !== 'admin') {
       return res.status(403).json({ message: 'You do not have permission to create products' });
     }
 
     const { name, description, price, image, category, stock } = req.body;
 
-    // CARLOS: Validate that required fields are present
     if (!name || !description || !price || !image || !category || stock === undefined) {
       return res.status(400).json({ message: 'Missing required fields' });
     }
 
-    // CARLOS: Create new product
     const newProduct = new Product({
       name,
       description,
@@ -63,7 +59,6 @@ exports.createProduct = async (req, res) => {
 // CARLOS: PUT - Edit product (Admin only)
 exports.updateProduct = async (req, res) => {
   try {
-    // CARLOS: Verify that user is admin
     if (req.user.role !== 'admin') {
       return res.status(403).json({ message: 'You do not have permission to edit products' });
     }
@@ -88,7 +83,6 @@ exports.updateProduct = async (req, res) => {
 // CARLOS: DELETE - Delete product (Admin only)
 exports.deleteProduct = async (req, res) => {
   try {
-    // CARLOS: Verify that user is admin
     if (req.user.role !== 'admin') {
       return res.status(403).json({ message: 'You do not have permission to delete products' });
     }

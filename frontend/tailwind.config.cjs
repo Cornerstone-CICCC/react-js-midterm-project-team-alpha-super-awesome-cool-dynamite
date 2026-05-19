@@ -1,7 +1,4 @@
-// ARTURO: Tailwind CSS Configuration
-// Tailwind is a utility-first CSS framework for styling
-
-export default {
+module.exports = {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",

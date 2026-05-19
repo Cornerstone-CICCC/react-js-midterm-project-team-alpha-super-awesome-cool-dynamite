@@ -15,10 +15,10 @@ router.get('/', cartController.getCart);
 // CARLOS: POST /api/cart/add - Add product to cart
 router.post('/add', cartController.addToCart);
 
-// CARLOS: DELETE /api/cart/remove/:productId - Remove product from cart
-router.delete('/remove/:productId', cartController.removeFromCart);
+// CARLOS: POST /api/cart/remove - Remove product from cart
+router.post('/remove', cartController.removeFromCart);
 
-// CARLOS: PUT /api/cart/update/:productId - Update product quantity
-router.put('/update/:productId', cartController.updateCartItem);
+// CARLOS: PUT /api/cart/update - Update product quantity
+router.put('/update', cartController.updateCartItem);
 
 module.exports = router;
