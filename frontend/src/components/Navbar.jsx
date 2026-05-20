@@ -13,8 +13,10 @@ function Navbar() {
   };
 
   return (
-    <nav className="bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between">
-      <Link to="/" className="text-purple-700 font-bold text-xl">Glitch Marketplace</Link>
+    <nav className="bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between font-bold">
+      <Link to="/">
+        <img src="/Glitch%20Logo.png" alt="GLITCH" className="h-9 w-auto" />
+      </Link>
       <div className="flex items-center gap-4">
         <Link to="/products" className="text-gray-700 hover:text-purple-700 transition">Products</Link>
         {user ? (

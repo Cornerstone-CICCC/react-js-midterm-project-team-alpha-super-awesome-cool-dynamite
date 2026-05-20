@@ -4,7 +4,9 @@ export default function Header() {
   return (
     <header className="header">
       <div className="header__inner">
-        <div className="header__logo">GLITCH</div>
+        <div className="header__logo">
+          <img src="/glitch-logo.png" alt="GLITCH" className="header__logo-img" />
+        </div>
 
         <nav className="header__nav">
           <a href="#" className="header__nav-link header__nav-link--active">DISCOVER</a>

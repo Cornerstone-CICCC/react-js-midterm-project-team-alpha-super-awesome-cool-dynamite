@@ -18,12 +18,15 @@
 }
 
 .header__logo {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 800;
-  font-size: 22px;
-  letter-spacing: 3px;
-  color: var(--crimson);
+  display: flex;
+  align-items: center;
   flex-shrink: 0;
+}
+
+.header__logo-img {
+  height: 34px;
+  width: auto;
+  display: block;
 }
 
 .header__nav {
